@@ -1,2 +1,3 @@
 # laravel-installer-action
-This action download the latest version of Laravel
+
+This action wraps Laravel installer using Docker.
