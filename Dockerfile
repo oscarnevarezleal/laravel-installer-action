@@ -29,7 +29,7 @@ RUN yum update -y \
 RUN useradd -u $USER_ID docker
 RUN groupmod -g $GROUP_ID docker
 
-WORKDIR /usr/app
+WORKDIR /github/workspace/
 
 RUN mkdir -p /usr/app/dist \
 	&& mkdir -p /usr/app/mount \
@@ -50,21 +50,21 @@ RUN source $NVM_DIR/nvm.sh \
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    php composer-setup.php
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+    php composer-setup.php && \
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer
 
 USER docker
 
 RUN composer global require laravel/installer \
-    && chmod ugo+rx ~/.config/composer/vendor/bin/laravel
+    && chmod ugo+rx /home/docker/.config/composer/vendor/bin/laravel
 
-ENV PATH "~/.config/composer/vendor/bin:~/.composer/vendor/bin:/usr/local/bin:$PATH"
+ENV PATH "/home/docker/.config/composer/vendor/bin:/home/docker/.composer/vendor/bin:/usr/local/bin:$PATH"
 
-WORKDIR /usr/app
-VOLUME /usr/app/dist
+WORKDIR /github/workspace/
+VOLUME /github/workspace/
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 CMD ["laravel", "--version"]
