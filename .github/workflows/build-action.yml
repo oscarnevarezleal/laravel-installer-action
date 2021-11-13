@@ -19,10 +19,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          load: true
           push: false
-          tags: oscarnevarezleal/laravel-installer-action:latest
-      -
+          tags: banana
+
+      - name: Test
         run: |
           docker images
-          docker run oscarnevarezleal/laravel-installer-action:latest version
-          docker run oscarnevarezleal/laravel-installer-action:latest new app
+          docker run --rm banana version
+          docker run --rm banana new app
