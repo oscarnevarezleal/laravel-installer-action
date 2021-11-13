@@ -1,0 +1,17 @@
+# action.yml
+name: 'Laravel Installer Action'
+description: 'This action download the latest version of Laravel'
+inputs:
+  args:
+    description: 'Laravel installer args'
+    required: false
+    default: 'new app'
+  directory:
+    description: 'Where to install'
+    required: true
+    default: '.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.args }}
