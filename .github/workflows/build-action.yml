@@ -30,6 +30,7 @@ jobs:
           docker run --rm -v $(pwd):/github/workspace/ banana new app
           ls -ltah
 
-      - uses: .
+      -
+        uses: ./
         with:
           args: new build
