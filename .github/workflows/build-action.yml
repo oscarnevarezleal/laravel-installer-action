@@ -23,5 +23,6 @@ jobs:
           tags: oscarnevarezleal/laravel-installer-action:latest
       -
         run: |
+          docker images
           docker run oscarnevarezleal/laravel-installer-action:latest version
           docker run oscarnevarezleal/laravel-installer-action:latest new app
