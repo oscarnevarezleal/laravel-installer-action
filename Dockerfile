@@ -59,9 +59,9 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 USER docker
 
 RUN composer global require laravel/installer \
-    && chmod ugo+rx ~/.config/composer/vendor/bin/laravel
+    && chmod ugo+rx /home/docker/.config/composer/vendor/bin/laravel
 
-ENV PATH "~/.config/composer/vendor/bin:~/.composer/vendor/bin:/usr/local/bin:$PATH"
+ENV PATH "/home/docker/.config/composer/vendor/bin:/home/docker/.composer/vendor/bin:/usr/local/bin:$PATH"
 
 WORKDIR /github/workspace/
 VOLUME /github/workspace/
