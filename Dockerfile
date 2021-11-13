@@ -64,7 +64,7 @@ RUN composer global require laravel/installer \
 ENV PATH "~/.config/composer/vendor/bin:~/.composer/vendor/bin:/usr/local/bin:$PATH"
 
 WORKDIR /github/workspace/
-VOLUME /usr/app/dist
+VOLUME /github/workspace/
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
 CMD ["laravel", "--version"]
