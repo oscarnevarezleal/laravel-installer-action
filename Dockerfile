@@ -29,7 +29,7 @@ RUN yum update -y \
 RUN useradd -u $USER_ID docker
 RUN groupmod -g $GROUP_ID docker
 
-WORKDIR /usr/app
+WORKDIR /github/workspace/
 
 RUN mkdir -p /usr/app/dist \
 	&& mkdir -p /usr/app/mount \
@@ -63,7 +63,7 @@ RUN composer global require laravel/installer \
 
 ENV PATH "~/.config/composer/vendor/bin:~/.composer/vendor/bin:/usr/local/bin:$PATH"
 
-WORKDIR /usr/app
+WORKDIR /github/workspace/
 VOLUME /usr/app/dist
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]

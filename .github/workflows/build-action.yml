@@ -28,3 +28,4 @@ jobs:
           docker images
           docker run --rm banana --version
           docker run --rm banana new app
+          ls -ltah
